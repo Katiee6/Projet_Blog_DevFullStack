@@ -4,11 +4,13 @@ import {MessageComponent} from "./message/message.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
 import {BlogComponent} from "./blog/blog.component";
 import {NouveauMessageComponent} from "./nouveau-message/nouveau-message.component";
+import {HttpClientModule} from "@angular/common/http";
+import {ListeMessagesComponent} from "./liste-messages/liste-messages.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MessageComponent, ConnexionComponent, BlogComponent, NouveauMessageComponent, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, MessageComponent, ConnexionComponent, BlogComponent, NouveauMessageComponent, RouterLink, RouterLinkActive, HttpClientModule, ListeMessagesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

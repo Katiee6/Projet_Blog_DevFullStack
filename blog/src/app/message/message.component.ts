@@ -1,26 +1,34 @@
-import {Component, Input} from '@angular/core';
-import {DatePipe} from "@angular/common";
+import {Component, Input, OnInit} from '@angular/core';
+import {DatePipe, JsonPipe} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {Message} from "../Message";
 
 @Component({
   selector: 'app-message',
   standalone: true,
   templateUrl: './message.component.html',
   imports: [
-    RouterLink
+    RouterLink,
+    JsonPipe
   ],
   styleUrl: './message.component.css'
 })
-export class MessageComponent {
-  id: string = "";
-  @Input() titre: string;
-  @Input() contenu: string;
-  @Input() date: Date;
 
-  constructor() {
-    this.titre = "Test Title";
-    this.contenu = "Test Content";
-    this.date = new Date();
+export class MessageComponent implements OnInit{
+
+  message!: Message;
+
+  ngOnInit(): void {
+    // /!\ Pour le test seulement
+    this.message = new Message();
+    this.message.titre = 'Voici le titre';
+    this.message.contenu = 'Voici le contenu';
   }
+
+  // Méthode qui permet de supprimer un message
+  supprimer(message: Message) {
+    // A ECRIRE
+  }
+
 }
 
