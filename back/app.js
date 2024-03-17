@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5500;
@@ -6,36 +5,23 @@ const PORT = process.env.PORT || 5500;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
-// We are using our packages here
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(express.json);
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-    extended: true}));
+// Use body-parser middleware for JSON and URL-encoded bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+const user = [{ name: 'Name' }];
 
-const user = [{name : 'Name'}]
-app.get('/', (req, res)=>{
-    res.send("Welcome to your server")
+app.get('/', (req, res) => {
+    res.send("Welcome to your server");
 });
 
-app.get('/user', (req, res)=>{
-    res.json(user);
-});
-
-app.post('/user', (req, res) => {
-
-});
 
 // Route pour gérer la connexion
+app.get('/connexion', (req, res) => {
+    res.send("connexion");
+});
 
-app.get("/:universalURL", (req, res) => {
-    res.send("404 URL NOT FOUND");
-});
-app.get('/connexion"', (req, res)=>{
-    res.send("connexion")
-});
 app.post('/connexion', (req, res) => {
     const email = req.body.EmailId;
     const password = req.body.Password;
@@ -50,16 +36,11 @@ app.post('/connexion', (req, res) => {
     }
 });
 
-
 // Route pour gérer l'inscription
-app.post('/creer-compte', (req, res) => {
-    // Logique de création de compte ici
-    console.log(req.body.fullname);
-    console.log(req.body.username);
-    console.log(req.body.password);
+app.get('/creer-compte', (req, res) => {
+    res.send("creer compte");
 });
 
-// Server setup
 app.listen(4000 , ()=>{
     console.log("server running");
 });
@@ -91,7 +72,7 @@ app.delete('/blog/:idMessage', (req, res) => {
     res.send(`On supprime le message id : ${req.params.idMessage}`)
     res.redirect('/blog')
 })
-
+// Server setup
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)
-})
+});
