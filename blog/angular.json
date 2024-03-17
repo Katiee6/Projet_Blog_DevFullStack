@@ -25,7 +25,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/bootstrap/dist/css/bootstrap.rtl.css",
+              "node_modules/bootstrap/dist/css/bootstrap-grid.css",
+              "node_modules/bootstrap/dist/css/bootstrap-grid.rtl.css",
+              "node_modules/bootstrap/dist/css/bootstrap-reboot.css",
+              "node_modules/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+              "node_modules/bootstrap/dist/css/bootstrap-utilities.css",
+              "node_modules/bootstrap/dist/css/bootstrap-utilities.rtl.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
