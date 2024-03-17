@@ -13,5 +13,5 @@ export const routes: Routes = [
   { path: 'blog/test-message', component: MessageComponent }, // Pour le test : A CHANGER -> message spécifique
   { path: 'blog/nouveau', component: NouveauMessageComponent },
   { path: 'blog/liste', component: ListeMessagesComponent },
-  { path: '**', redirectTo: 'connexion' } // Vers Connexion ou Blog ???
+  { path: '**', redirectTo: 'blog' } // Vers Connexion ou Blog ???
 ];
