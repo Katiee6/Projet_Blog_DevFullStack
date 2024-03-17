@@ -1,9 +1,68 @@
-// A MODIFIER
-// PAS BON, JUSTE UNE TRAME !!!
 
 const express = require("express");
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 5500;
+
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+
+// We are using our packages here
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(express.json);
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    extended: true}));
+app.use(cors());
+
+
+const user = [{name : 'Name'}]
+app.get('/', (req, res)=>{
+    res.send("Welcome to your server")
+});
+
+app.get('/user', (req, res)=>{
+    res.json(user);
+});
+
+app.post('/user', (req, res) => {
+
+});
+
+// Route pour gérer la connexion
+
+app.get("/:universalURL", (req, res) => {
+    res.send("404 URL NOT FOUND");
+});
+app.get('/connexion"', (req, res)=>{
+    res.send("connexion")
+});
+app.post('/connexion', (req, res) => {
+    const email = req.body.EmailId;
+    const password = req.body.Password;
+
+    // Vérifiez les informations d'identification ici (c'est juste une simulation)
+    if (email === "user@example.com" && password === "password") {
+        // Connexion réussie, renvoie une réponse JSON avec succès
+        res.status(200).json({ result: true, message: "Connexion réussie" });
+    } else {
+        // Connexion échouée, renvoie une réponse JSON avec un statut HTTP 401
+        res.status(401).json({ result: false, message: "Identifiants incorrects" });
+    }
+});
+
+
+// Route pour gérer l'inscription
+app.post('/creer-compte', (req, res) => {
+    // Logique de création de compte ici
+    console.log(req.body.fullname);
+    console.log(req.body.username);
+    console.log(req.body.password);
+});
+
+// Server setup
+app.listen(4000 , ()=>{
+    console.log("server running");
+});
 
 app.get('/blog', (req, res) => {
     // A remplacer par l'affichage de la liste
@@ -33,6 +92,6 @@ app.delete('/blog/:idMessage', (req, res) => {
     res.redirect('/blog')
 })
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`)
 })
