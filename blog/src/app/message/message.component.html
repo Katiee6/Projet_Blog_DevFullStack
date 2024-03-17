@@ -1,8 +1,15 @@
-
+<!--Pour afficher le message concerné-->
 <div class="message">
-  <h2>{{ titre }}</h2>
-  <p>{{ contenu }}</p>
-  <small>Date: {{ date }}</small>
+  <h2>{{ message.titre }}</h2>
+  <small>Date: {{ message.date }}</small>
+  <p>{{ message.contenu }}</p>
 </div>
 
+<!--Boutton Supprimer qui supprime le message de la liste-->
+<button (click)="supprimer(message)">Supprimer</button>
+
+<!--Boutton Retour qui renvoie au blog A CHANGER???-->
 <button routerLink="/blog">Retour</button>
+
+<p><br>Pour le test :</p>
+<pre>{{message | json}}</pre>
