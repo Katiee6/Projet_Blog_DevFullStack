@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html>
+<div>
 <head>
-  <title>Slide Navbar</title>
+  <title>Connexion</title>
   <link rel="stylesheet" type="text/css" href="">
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
@@ -9,24 +8,17 @@
 <div class="main">
   <input type="checkbox" id="chk" aria-hidden="true">
 
-  <div class="signup">
-    <form>
-      <label for="chk" aria-hidden="true">Sign up</label>
-      <input type="text" name="txt" placeholder="User name" required="">
-      <input type="email" name="email" placeholder="Email" required="">
-      <input type="password" name="pswd" placeholder="Password" required="">
-      <button id="singu">Sign up</button>
-    </form>
-  </div>
+  <!-- Formulaire de connexion -->
+  <div class="connex">
+    <form (submit)="connexion()">
+      <label for="chk" aria-hidden="true">Se connecter</label>
+      <input type="text" name="Id" placeholder="Id" [(ngModel)]="credentials.id" required>
+      <input type="password" name="motDePasse" placeholder="motDePasse" [(ngModel)]="credentials.motDePasse"  required>
+      <button type="submit">Se connecter</button>
+      <button routerLink="/creer-compte" type="submit">Créer un compte</button>
 
-  <div class="login">
-    <form>
-      <label for="chk" aria-hidden="true">Login</label>
-      <input type="email" name="email" placeholder="Email" required="">
-      <input type="password" name="pswd" placeholder="Password" required="">
-      <button>Login</button>
     </form>
   </div>
 </div>
 </body>
-</html>
+</div>

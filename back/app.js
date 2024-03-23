@@ -4,13 +4,14 @@ const PORT = process.env.PORT || 5500;
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const fs = require('fs'); // Importez le module fs pour la gestion des fichiers
 
 // Use body-parser middleware for JSON and URL-encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-const user = [{ name: 'Name' }];
+let users = require("./users.json");
 
 app.get('/', (req, res) => {
     res.send("Welcome to your server");
@@ -23,27 +24,76 @@ app.get('/connexion', (req, res) => {
 });
 
 app.post('/connexion', (req, res) => {
-    const email = req.body.EmailId;
-    const password = req.body.Password;
+    const id = req.body.id;
+    const motDePasse = req.body.motDePasse;
 
-    // Vérifiez les informations d'identification ici (c'est juste une simulation)
-    if (email === "user@example.com" && password === "password") {
-        // Connexion réussie, renvoie une réponse JSON avec succès
+    // Vérifiez les informations d'identification
+    const user = users.find(user => user.id === id);
+    //&& user.motDePasse === motDePasse);
+
+    if (user) {
+        // Connexion réussie
         res.status(200).json({ result: true, message: "Connexion réussie" });
+        console.log("connected");
     } else {
-        // Connexion échouée, renvoie une réponse JSON avec un statut HTTP 401
+        // Identifiants incorrects
         res.status(401).json({ result: false, message: "Identifiants incorrects" });
+        console.log("error");
     }
 });
 
-// Route pour gérer l'inscription
 app.get('/creer-compte', (req, res) => {
-    res.send("creer compte");
+    res.send("creer-compte");
 });
 
-app.listen(4000 , ()=>{
-    console.log("server running");
+app.post('/creer-compte', (req, res) => {
+    // Récupérer les données du formulaire
+    const newUser = {
+        id: req.body.id,
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        email: req.body.email,
+        telephone: req.body.telephone,
+        blogId: req.body.blogId,
+        motDePasse: req.body.motDePasse // Ajouter le mot de passe
+    };
+
+    // Lire le contenu actuel du fichier users.json
+    fs.readFile('./users.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading users file:', err);
+            res.status(500).json({ error: "Erreur lors de la création du compte" });
+            return;
+        }
+
+        // Parser les données JSON
+        const users = JSON.parse(data);
+
+        // Vérifier si l'utilisateur existe déjà
+        const existingUser = users.find(user => user.id === newUser.id);
+
+        if (existingUser) {
+            // Utilisateur déjà existant
+            res.status(400).json({ error: "Ce compte existe déjà" });
+            console.log("error")
+        } else {
+            // Ajouter le nouvel utilisateur à la liste
+            users.push(newUser);
+            console.log("En cours...")
+            // Réécrire le fichier users.json avec les données mises à jour
+            fs.writeFile('./users.json', JSON.stringify(users), (err) => {
+                if (err) {
+                    console.error('Error writing users file:', err);
+                    res.status(500).json({ error: "Erreur lors de l'inscription" });
+                } else {
+                    console.log("Nouvel utilisateur enregistré :", newUser);
+                    res.status(200).json({ message: "Inscription réussie" });
+                }
+            });
+        }
+    });
 });
+
 
 app.get('/blog', (req, res) => {
     // A remplacer par l'affichage de la liste

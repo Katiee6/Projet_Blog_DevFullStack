@@ -4,7 +4,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 95vh;
   font-family: 'Jost', sans-serif;
 }
 
@@ -14,14 +14,14 @@ body {
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 5px 20px 50px #000;
-  background: linear-gradient(to bottom, rgba(0, 35, 122, 0.5), #302b63, #303091);
+  background: linear-gradient(to bottom, #253b57, #302b63, #303091);
 }
 
 #chk {
   display: none;
 }
 
-.signup {
+.connex {
   position: relative;
   width: 100%;
   height: 100%;
@@ -69,30 +69,5 @@ button {
 }
 
 button:hover {
-  background: #6d44b8;
-}
-
-.login {
-  height: 460px;
-  background: #eee;
-  border-radius: 60% / 10%;
-  transform: translateY(-180px);
-  transition: .8s ease-in-out;
-}
-
-.login label {
-  color: #573b8a;
-  transform: scale(.6);
-}
-
-#chk:checked ~ .login {
-  transform: translateY(-500px);
-}
-
-#chk:checked ~ .login label {
-  transform: scale(1);
-}
-
-#chk:checked ~ .signup label {
-  transform: scale(.6);
+  background: #253b57;
 }
