@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {JsonPipe, NgIf} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {Message} from "../message";
+import {Message} from "../Message";
 import {MessagesService} from "../messages.service";
 
 @Component({

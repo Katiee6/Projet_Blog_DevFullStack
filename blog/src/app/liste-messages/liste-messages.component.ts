@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Message} from "../message";
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {MessagesService} from "../messages.service";
+import {Message} from '../Message';
 
 @Component({
   selector: 'app-liste-messages',
