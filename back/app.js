@@ -95,33 +95,71 @@ app.post('/creer-compte', (req, res) => {
 });
 
 
-app.get('/blog', (req, res) => {
-    // A remplacer par l'affichage de la liste
-    res.send('On affiche la liste des messages')
+// GESTION DES MESSAGES :
+
+// Identifiant du message (incrémenté à chaque création)
+let idMessage = 0;
+// Liste qui contient tous les messages
+let listeMessages = [];
+
+// Pour créer un message
+function Message(titre, contenu) {
+    idMessage++; // On incrémente d'id
+    this.id = idMessage;
+    this.titre = titre;
+    this.contenu = contenu;
+    this.date = new Date().toLocaleString("fr-FR"); // Message créé avec la date actuelle
+}
+
+// Route POST pour la création d'un message
+app.post('/blog/nouveau', (req, res) => {
+    const { titre, contenu } = req.body; // Récupérer le titre et le contenu saisis
+    const nouveauMessage = new Message(titre, contenu); // Créer le message
+    listeMessages.push(nouveauMessage); // Ajouter le message à la liste
+    res.status(201).json(nouveauMessage); // Renvoyer le message
+});
+
+// Route GET pour la liste des messages
+app.get('/blog/liste', (req, res) => {
+    console.log(listeMessages);
+    res.status(200).json(Object.values(listeMessages));
 })
 
-app.get('/blog/new', (req, res) => {
-    // A remplacer par la creation du message
-    res.send('On va cree un nouveau message sur cette page')
+// Route GET pour les détails d'un message
+app.get('/blog/:id', (req, res) => {
+    let messageId;
+    if (isNaN(req.params.id)) {
+        messageId = "";
+    } else {
+        messageId = parseInt(req.params.id); // On récupère l'id du message
+    }
+    const message = listeMessages.find(msg => msg.id === messageId); // On recherche le message dans la liste
+    if (message) {
+        res.status(200).json(message); // On renvoie le message
+    } else {
+        res.status(404).json({ message: 'Message non trouvé' });
+    }
+});
+
+// Route DELETE pour la suppression d'un message
+app.delete('/blog/:id', (req, res) => {
+    let messageId;
+    if (isNaN(req.params.id)) {
+        messageId = "";
+    } else {
+        messageId = parseInt(req.params.id); // On récupère l'id du message
+    }
+    const message = listeMessages.find(msg => msg.id === messageId); // On recherche le message dans la liste
+    if (message) {
+        const index = listeMessages.indexOf(message); // On obtient l'index du message
+        listeMessages.splice(index, 1); // On supprime le message de la liste (par son index)
+    } else {
+        res.status(404).json({ message: 'Message non trouvé' });
+    }
+
 })
 
-app.post('/blog/new', (req, res) => {
-    // A remplacer par la creation du message
-    res.send('On va cree un nouveau message sur cette page')
-    res.redirect(`/users/${messages.length-1}`) //si messages contient la liste des messages
-    res.redirect('/blog') // ou ça directement
-})
 
-app.get('/blog/:idMessage', (req, res) => {
-    // A remplacer par le message lui meme
-    res.send(`On affiche le message id : ${req.params.idMessage}`)
-})
-
-app.delete('/blog/:idMessage', (req, res) => {
-    // A remplacer par la suppression du message
-    res.send(`On supprime le message id : ${req.params.idMessage}`)
-    res.redirect('/blog')
-})
 // Server setup
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)

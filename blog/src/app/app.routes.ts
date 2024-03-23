@@ -17,14 +17,10 @@ export const routes: Routes = [
     path : '',
     component : BlogComponent,
   },
-  { path: 'blog', component: BlogComponent },
-  //{ path: 'blog/message/:id', component: MessageComponent }, //A utiliser : spécifique à un message
-  { path: 'blog/test-message', component: MessageComponent }, //Pour le test
   { path: 'blog', component: BlogComponent }, // ?? supprimer blog ??
   { path: ':user', component: ListeMessagesComponent }, // ?? Apres la connexion, afficher la liste des messages de l'utilisateur
-  { path: 'blog/message/:id', component: MessageComponent }, //Spécifique à un message
-  { path: 'blog/test-message', component: MessageComponent }, // Pour le test : A CHANGER -> message spécifique
   { path: 'blog/nouveau', component: NouveauMessageComponent },
   { path: 'blog/liste', component: ListeMessagesComponent },
-  { path: '**', redirectTo: 'connexion' } // Vers Connexion ou Blog ???
+  { path: 'blog/:id', component: MessageComponent }, //Spécifique à un message
+  { path: '**', redirectTo: 'blog' } // Vers Connexion ou Blog ???
 ];

@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {FormsModule, NgForm} from "@angular/forms";
-import {Message} from "../Message";
 import {JsonPipe} from "@angular/common";
-import {ListeMessagesComponent} from "../liste-messages/liste-messages.component";
+import {MessagesService} from "../messages.service";
 
 @Component({
   selector: 'app-nouveau-message',
@@ -17,30 +16,19 @@ import {ListeMessagesComponent} from "../liste-messages/liste-messages.component
   styleUrl: './nouveau-message.component.css'
 })
 
-export class NouveauMessageComponent implements OnInit{
+export class NouveauMessageComponent {
 
-  message!: Message;
+  constructor(private messagesService: MessagesService) {}
 
-  ngOnInit(): void {
-    this.message = new Message();
-  }
+  // Pour récupérer le titre et le contenu du message créer
+  message = { titre: '', contenu: '' };
 
-  // Ce qui se passe à la validation du formulaire de création d'un message
+  // Méthode appelée lors de la validation du formulaire
   onSubmit(form: NgForm) {
-    //console.log(form.value);
-    console.log(this.message);
-    // A COMPLETER
-  }
-
-  /*
-  // Exemple qui pourrait servir pour écrire onSubmit
-  onSubmit() {
-    this.http.post<any>(this.apiUrl, this.message).subscribe((data) => {
-      console.log(data);
-      this.posts = [];
-      this.posts.push(data);
+    this.messagesService.ajouterMessage(this.message).subscribe((nouveauMessage) => {
+      console.log(nouveauMessage);
+      location.assign("/blog/" + nouveauMessage.id) // Redirige vers les détails du message créé
     });
   }
-  */
 
 }
