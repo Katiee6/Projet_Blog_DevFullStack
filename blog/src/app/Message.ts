@@ -1,5 +1,4 @@
 export class Message {
-
   id!: number;
   titre!: string;
   contenu!: string;
