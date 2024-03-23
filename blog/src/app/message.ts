@@ -1,6 +1,5 @@
 export class Message {
-
-  id!: number;
+  id!: number; // number ou string ???
   titre!: string;
   contenu!: string;
   date!: string;
