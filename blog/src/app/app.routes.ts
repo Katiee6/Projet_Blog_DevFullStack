@@ -5,6 +5,7 @@ import {CreerCompteComponent} from "./creer-compte/creer-compte.component";
 import {BlogComponent} from "./blog/blog.component";
 import {NouveauMessageComponent} from "./nouveau-message/nouveau-message.component";
 import {ListeMessagesComponent} from "./liste-messages/liste-messages.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 export const routes: Routes = [
   {
@@ -13,6 +14,9 @@ export const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
 
   { path: 'creer-compte', component: CreerCompteComponent },
+  { path: 'profile', component: ProfileComponent },
+
+
   {
     path : '',
     component : BlogComponent,

@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="col-md-12 col-sm-9 col-xs-12">
+        <form class="create-form" >
+            <div class="col-md-8 col-xs-12">
+                <div class="form-group ">
+                    <label for="comment">Username:</label>
+                    <div class="input-style">
+                        <input placeholder="User Name" class="form-control" formControlName="uname" >
+                    </div>
+                    <ng-container >
+                        <div class="help-block has-error" >
+                            </div>
+                    </ng-container>
+                    <ng-container >
+                        <div class="help-block has-error" >
+                            </div>
+                    </ng-container>
+                </div>
+
+
+                <div class="form-group ">
+                    <label for="comment">Email:</label>
+                    <div class="input-style">
+                        <input placeholder="User Name" class="form-control" formControlName="email">
+                    </div>
+                    <ng-container>
+                        <div class="help-block has-error" ></div>
+                    </ng-container>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Name:</label>
+                    <div class="input-style">
+                        <input placeholder="Name" class="form-control" formControlName="name">
+                    </div>
+                    <ng-container >
+                        <div class="help-block has-error" ></div>
+                    </ng-container>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Description:</label>
+                    <textarea class="form-control" rows="5" id="comment" formControlName="desc"></textarea>
+
+                </div>
+
+                <div class="row submit-button-container">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary submit-button" color="primary" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
