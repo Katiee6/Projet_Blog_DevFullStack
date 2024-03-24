@@ -1,8 +1,6 @@
-<p>liste-messages works!</p>
-
 <!--Pour afficher la liste de tous les messages-->
-<div class="bloc-message" *ngFor="let message of liste">
-  <p id="liste-titre"><a routerLink="/blog/test-message">{{message.titre}}</a></p>
+<div class="bloc-message" *ngFor="let message of liste.slice().reverse()">
+  <p id="liste-titre"><a routerLink="/blog/{{message.id}}">{{message.titre}}</a></p>
   <p id="liste-date">{{message.date}}</p>
-  <p id="liste-contenu">{{message.contenu}}</p>
+  <!--<p id="liste-contenu">{{message.contenu}}</p> PAS BESOIN ICI ??-->
 </div>

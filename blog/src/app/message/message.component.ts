@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DatePipe, JsonPipe} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {JsonPipe, NgIf} from "@angular/common";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Message} from "../Message";
+import {MessagesService} from "../messages.service";
 
 @Component({
   selector: 'app-message',
@@ -9,7 +10,8 @@ import {Message} from "../Message";
   templateUrl: './message.component.html',
   imports: [
     RouterLink,
-    JsonPipe
+    JsonPipe,
+    NgIf
   ],
   styleUrl: './message.component.css'
 })
@@ -18,17 +20,21 @@ export class MessageComponent implements OnInit{
 
   message!: Message;
 
+  constructor(
+    private route: ActivatedRoute,
+    private messagesService: MessagesService,
+  ) {}
+
   ngOnInit(): void {
-    // /!\ Pour le test seulement
-    this.message = new Message();
-    this.message.titre = 'Voici le titre';
-    this.message.contenu = 'Voici le contenu';
+    const messageId = parseInt(<string>this.route.snapshot.paramMap.get('id'));
+    this.messagesService.getMessage(messageId)
+      .subscribe(message => this.message = message);
   }
 
   // Méthode qui permet de supprimer un message
   supprimer(message: Message) {
-    // A ECRIRE
+    location.assign("/blog/liste") // Redirige vers la liste //REDIRIGER VERS L'ACCUEIL???
+    this.messagesService.supprimerMessage(message.id).subscribe();
   }
 
 }
-
