@@ -112,7 +112,7 @@ function Message(titre, contenu) {
 }
 
 // Route POST pour la création d'un message
-app.post('/blog/nouveau', (req, res) => {
+app.post('/nouveau-message', (req, res) => {
     const { titre, contenu } = req.body; // Récupérer le titre et le contenu saisis
     const nouveauMessage = new Message(titre, contenu); // Créer le message
     listeMessages.push(nouveauMessage); // Ajouter le message à la liste
@@ -120,13 +120,13 @@ app.post('/blog/nouveau', (req, res) => {
 });
 
 // Route GET pour la liste des messages
-app.get('/blog/liste', (req, res) => {
+app.get('/liste-messages', (req, res) => {
     console.log(listeMessages);
     res.status(200).json(Object.values(listeMessages));
 })
 
 // Route GET pour les détails d'un message
-app.get('/blog/:id', (req, res) => {
+app.get('/message/:id', (req, res) => {
     let messageId;
     if (isNaN(req.params.id)) {
         messageId = "";
@@ -142,7 +142,7 @@ app.get('/blog/:id', (req, res) => {
 });
 
 // Route DELETE pour la suppression d'un message
-app.delete('/blog/:id', (req, res) => {
+app.delete('/message/:id', (req, res) => {
     let messageId;
     if (isNaN(req.params.id)) {
         messageId = "";
