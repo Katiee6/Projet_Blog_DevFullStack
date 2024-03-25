@@ -17,22 +17,35 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/connexion`, user);
   }
 
+  //creer l'utilisateur
   createUser(user: User): Observable<any> {
     return this.http.post(`${this.baseUrl}/creer-compte`, user);
   }
 
-  //not used
-  loginUser(credentials: { email: string, password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/connexion`, credentials);
+
+
+
+
+
+  //Récupérer les données de l'utilisateur actuellement connecté
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/profil`);
   }
 
-  //not used
-  updateUser(userId: string, user: User): Observable<any> {
-    return this.http.put(`${this.baseUrl}/users/${userId}`, user);
+  // Méthode pour récupérer les informations de l'utilisateur
+  getUserProfile(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/profil/${userId}`);
   }
 
-  //not used
+  updateProfile(user: User): Observable<any> {
+    return this.http.put(`${this.baseUrl}/profil/${user.id}`, user);
+  }
+
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/users/${userId}`);
+    return this.http.delete(`${this.baseUrl}/profil/${userId}`);
   }
 }
+
+
+
+
