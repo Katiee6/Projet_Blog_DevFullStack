@@ -13,6 +13,60 @@ app.use(cors());
 
 let users = require("./users.json");
 
+//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+//crypto : bibliothèque pour générer des clés aléatoires sécurisées
+const crypto = require('crypto');
+const secretKey = crypto.randomBytes(64).toString('hex');
+console.log(secretKey);
+
+//Initialiser et configurer Express Session
+const session = require('express-session');
+//Stocker les sessions des utilisateurs entre les requêtes
+
+app.use(session({
+    secret: secretKey,
+    resave: false,
+    saveUninitialized: true,
+}));
+
+//creer et verifier les jetons JWT
+const jwt = require('jsonwebtoken');
+
+//fonction pour générer un jeton JWT lorsqu'un utilisateur se connecte avec succès
+const generateToken = (user) => {
+    return jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+};
+
+const verifyToken = (token) => {
+    return jwt.verify(token, secretKey);
+};
+
+
+const verifyTokenMiddleware = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (token) {
+        try {
+            const decoded = verifyToken(token);
+            req.user = decoded;
+            next();
+        } catch (error) {
+            res.status(401).json({ message: 'Token invalide' });
+        }
+    } else {
+        res.status(401).json({ message: 'Token manquant' });
+    }
+};
+
+// Exemple d'utilisation du middleware pour protéger une route
+app.get('/profil', verifyTokenMiddleware, (req, res) => {
+    // Vous pouvez accéder à l'utilisateur authentifié via req.user
+    res.json(req.user);
+});
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+
 app.get('/', (req, res) => {
     res.send("Welcome to your server");
 });
@@ -32,8 +86,9 @@ app.post('/connexion', (req, res) => {
     //&& user.motDePasse === motDePasse);
 
     if (user) {
-        // Connexion réussie
-        res.status(200).json({ result: true, message: "Connexion réussie" });
+        // Connexion réussie, générez un jeton JWT
+        const token = generateToken(user); // Génération du token
+        res.status(200).json({ result: true, message: "Connexion réussie",token: token });
         console.log("connected");
     } else {
         // Identifiants incorrects
@@ -42,6 +97,7 @@ app.post('/connexion', (req, res) => {
     }
 });
 
+//Route pour la ccréation de compte
 app.get('/creer-compte', (req, res) => {
     res.send("creer-compte");
 });
@@ -93,6 +149,46 @@ app.post('/creer-compte', (req, res) => {
         }
     });
 });
+
+
+
+// Route pour récupérer les informations de l'utilisateur actuellement connecté ou qui a créé un compte
+app.get('/profil/:id', (req, res) => {
+    const userId = req.params.id; // Récupérer l'ID de l'utilisateur à partir des paramètres de la requête
+    const user = users.find(user => user.id === userId); // Rechercher l'utilisateur dans la liste des utilisateurs
+    if (user) {
+        res.status(200).json(user); // Renvoyer les informations de l'utilisateur au format JSON
+    } else {
+        res.status(404).json({ error: "Utilisateur non trouvé" }); // Renvoyer une erreur si l'utilisateur n'est pas trouvé
+    }
+});
+
+// Route pour mettre à jour le profil de l'utilisateur
+app.put('/profil/:id', (req, res) => {
+    const userId = req.params.id; // Récupérer l'ID de l'utilisateur à partir des paramètres de la requête
+    const updatedUser = req.body; // Récupérer les nouvelles données de l'utilisateur à partir du corps de la requête
+
+    // Rechercher l'utilisateur dans la liste des utilisateurs
+    const userIndex = users.findIndex(user => user.id === userId);
+
+    if (userIndex !== -1) {
+        // Mettre à jour les données de l'utilisateur
+        users[userIndex] = { ...users[userIndex], ...updatedUser };
+        // Réécrire le fichier users.json avec les données mises à jour
+        fs.writeFile('./users.json', JSON.stringify(users), (err) => {
+            if (err) {
+                console.error('Error writing users file:', err);
+                res.status(500).json({ error: "Erreur lors de la mise à jour du profil" });
+            } else {
+                console.log("Profil utilisateur mis à jour :", updatedUser);
+                res.status(200).json({ message: "Profil mis à jour avec succès", user: users[userIndex] });
+            }
+        });
+    } else {
+        res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+});
+
 
 
 // GESTION DES MESSAGES :
@@ -158,7 +254,6 @@ app.delete('/message/:id', (req, res) => {
     }
 
 })
-
 
 // Server setup
 app.listen(PORT, () => {

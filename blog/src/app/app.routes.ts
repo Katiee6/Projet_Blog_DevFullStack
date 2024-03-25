@@ -5,10 +5,12 @@ import {CreerCompteComponent} from "./creer-compte/creer-compte.component";
 import {BlogComponent} from "./blog/blog.component";
 import {NouveauMessageComponent} from "./nouveau-message/nouveau-message.component";
 import {ListeMessagesComponent} from "./liste-messages/liste-messages.component";
+import {ProfilComponent} from "./profil/profil.component";
 
 export const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
   { path: 'creer-compte', component: CreerCompteComponent },
+  { path: 'profil', component: ProfilComponent },
   //{ path: 'blog', component: BlogComponent }, // ?? supprimer blog ??
   { path: 'nouveau-message', component: NouveauMessageComponent },
   { path: 'liste-messages', component: ListeMessagesComponent },
