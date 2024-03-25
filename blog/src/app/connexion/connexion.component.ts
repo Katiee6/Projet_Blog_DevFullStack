@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {User} from "../User";
 import { UserService } from '../user.service';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -22,10 +23,12 @@ export class ConnexionComponent{
 
   credentials = { id: '', motDePasse: '' };
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService,
+              private authService: AuthService,
+              private router: Router) { }
 
   //methode non utilisé pour le moment
-  onLogin() {
+  /*onLogin() {
     // Créez un objet User à partir des informations de connexion
     const userLogin: User = new User('', '', '', '', '', '','');
 
@@ -47,8 +50,24 @@ export class ConnexionComponent{
         alert("Une erreur s'est produite lors de la connexion.");
       }
     );
+  }*/
+  onLogin(): void {
+    this.authService.login(this.credentials).subscribe(
+      (response: any) => {
+        if (response.result && response.token) {
+          alert("Connexion réussie");
+          this.authService.saveToken(response.token);
+          this.router.navigateByUrl('/profil');
+        } else {
+          alert(response.message);
+        }
+      },
+      (error: any) => {
+        console.error('Erreur de connexion:', error);
+        alert("Une erreur s'est produite lors de la connexion.");
+      }
+    );
   }
-
   connexion() {
     // Créer un nouvel objet User avec l'email et l'ID du blog
     const user: User = {
