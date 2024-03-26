@@ -8,21 +8,13 @@ import {ListeMessagesComponent} from "./liste-messages/liste-messages.component"
 import {ProfilComponent} from "./profil/profil.component";
 
 export const routes: Routes = [
-  {
-    path : '', redirectTo : 'ConnexionComponent', pathMatch :'full'
-  },
   { path: 'connexion', component: ConnexionComponent },
-
   { path: 'creer-compte', component: CreerCompteComponent },
   { path: 'profil', component: ProfilComponent },
-  {
-    path : '',
-    component : BlogComponent,
-  },
-  { path: 'blog', component: BlogComponent }, // ?? supprimer blog ??
-  { path: ':user', component: ListeMessagesComponent }, // ?? Apres la connexion, afficher la liste des messages de l'utilisateur
-  { path: 'blog/nouveau', component: NouveauMessageComponent },
-  { path: 'blog/liste', component: ListeMessagesComponent },
-  { path: 'blog/:id', component: MessageComponent }, //Spécifique à un message
-  { path: '**', redirectTo: 'blog' } // Vers Connexion ou Blog ???
+  //{ path: 'blog', component: BlogComponent }, // ?? supprimer blog ??
+  { path: 'nouveau-message', component: NouveauMessageComponent },
+  { path: 'liste-messages', component: ListeMessagesComponent },
+  { path: 'message/:id', component: MessageComponent }, //Spécifique à un message
+  { path : '', redirectTo : 'connexion', pathMatch :'full'},
+  { path: '**', redirectTo: 'connexion' }, // Vers Connexion ou Blog ???
 ];

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {JsonPipe, NgIf} from "@angular/common";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Message} from "../Message";
 import {MessagesService} from "../messages.service";
 
@@ -23,6 +23,7 @@ export class MessageComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private messagesService: MessagesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +34,9 @@ export class MessageComponent implements OnInit{
 
   // Méthode qui permet de supprimer un message
   supprimer(message: Message) {
-    location.assign("/blog/liste") // Redirige vers la liste //REDIRIGER VERS L'ACCUEIL???
+    //location.assign("/blog/liste") // Redirige vers la liste //REDIRIGER VERS L'ACCUEIL???
     this.messagesService.supprimerMessage(message.id).subscribe();
+    this.router.navigate(['/liste-messages']);
   }
 
 }

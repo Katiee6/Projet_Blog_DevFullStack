@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {FormsModule, NgForm} from "@angular/forms";
 import {JsonPipe} from "@angular/common";
 import {MessagesService} from "../messages.service";
@@ -18,7 +18,7 @@ import {MessagesService} from "../messages.service";
 
 export class NouveauMessageComponent {
 
-  constructor(private messagesService: MessagesService) {}
+  constructor(private messagesService: MessagesService, private router: Router) {}
 
   // Pour récupérer le titre et le contenu du message créer
   message = { titre: '', contenu: '' };
@@ -27,7 +27,8 @@ export class NouveauMessageComponent {
   onSubmit(form: NgForm) {
     this.messagesService.ajouterMessage(this.message).subscribe((nouveauMessage) => {
       console.log(nouveauMessage);
-      location.assign("/blog/" + nouveauMessage.id) // Redirige vers les détails du message créé
+      //location.assign("/blog/" + nouveauMessage.id) // Redirige vers les détails du message créé
+      this.router.navigate(['/liste-messages']);
     });
   }
 
