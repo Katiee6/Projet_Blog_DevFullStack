@@ -21,7 +21,7 @@ import { AuthService } from '../auth.service';
 })
 export class ConnexionComponent{
 
-  credentials = { id: ''};
+  credentials = { id: '', motDePasse:''};
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -80,15 +80,15 @@ export class ConnexionComponent{
       email: '', // Utiliser l'email à partir de credentials
       telephone: '', // Le numéro de téléphone peut être vide ou initialisé à une valeur par défaut
       blogId: '', // Utiliser l'ID du blog à partir de credentials
-      motDePasse :'',
+      motDePasse :this.credentials.motDePasse,
     };
 
     // Appeler la méthode connexion du service UserService avec le nouvel utilisateur
     this.userService.connexion(user).subscribe(response => {
       console.log('Connexion réussie:', response);
       // Réinitialiser les données du formulaire après la connexion
-      this.credentials = { id: ''};
-      this.router.navigate(['/profil']); // Rediriger vers la pge "liste-message"
+      this.credentials = { id: '',motDePasse:''};
+      this.router.navigate(['/liste-messages']); // Rediriger vers la pge "liste-message"
 
     }, error => {
       console.error('Erreur de connexion:', error);

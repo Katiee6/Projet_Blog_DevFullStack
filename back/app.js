@@ -14,8 +14,8 @@ let users = require("./users.json");
 
 // Route to handle user login
 app.post('/connexion', (req, res) => {
-    const { id} = req.body;
-    const user = users.find(user => user.id === id);
+    const { id, motDePasse} = req.body;
+    const user = users.find(user => user.id === id && user.motDePasse);
 
     if (user) {
         res.status(200).json({ result: true, message: "Connexion réussie" });

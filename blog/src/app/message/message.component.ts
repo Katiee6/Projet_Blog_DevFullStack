@@ -28,6 +28,7 @@ export class MessageComponent implements OnInit{
 
   ngOnInit(): void {
     const messageId = parseInt(<string>this.route.snapshot.paramMap.get('id'));
+
     this.messagesService.getMessage(messageId)
       .subscribe(message => this.message = message);
   }

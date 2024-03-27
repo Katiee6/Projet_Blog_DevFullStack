@@ -13,6 +13,8 @@
     <form (submit)="connexion()">
       <label for="chk" aria-hidden="true">S'authentifier</label>
       <input type="text" name="Id" placeholder="Id" [(ngModel)]="credentials.id" required>
+      <input type="text" name="motDePasse" placeholder="motDePasse" [(ngModel)]="credentials.motDePasse" required>
+
       <button type="submit">Se connecter</button>
       <button routerLink="/creer-compte" type="submit">Créer un compte</button>
 
