@@ -10,10 +10,9 @@
 
   <!-- Formulaire de connexion -->
   <div class="connex">
-    <form (submit)="onLogin()">
+    <form (submit)="connexion()">
       <label for="chk" aria-hidden="true">S'authentifier</label>
       <input type="text" name="Id" placeholder="Id" [(ngModel)]="credentials.id" required>
-      <input type="password" name="motDePasse" placeholder="Mot de passe" [(ngModel)]="credentials.motDePasse"  required>
       <button type="submit">Se connecter</button>
       <button routerLink="/creer-compte" type="submit">Créer un compte</button>
 

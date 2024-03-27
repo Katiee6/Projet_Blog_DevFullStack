@@ -4,106 +4,28 @@ const PORT = process.env.PORT || 5500;
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const fs = require('fs'); // Importez le module fs pour la gestion des fichiers
+const fs = require('fs');
 
-// Use body-parser middleware for JSON and URL-encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 let users = require("./users.json");
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-//crypto : bibliothèque pour générer des clés aléatoires sécurisées
-const crypto = require('crypto');
-const secretKey = crypto.randomBytes(64).toString('hex');
-console.log(secretKey);
-
-//Initialiser et configurer Express Session
-const session = require('express-session');
-//Stocker les sessions des utilisateurs entre les requêtes
-
-app.use(session({
-    secret: secretKey,
-    resave: false,
-    saveUninitialized: true,
-}));
-
-//creer et verifier les jetons JWT
-const jwt = require('jsonwebtoken');
-
-//fonction pour générer un jeton JWT lorsqu'un utilisateur se connecte avec succès
-const generateToken = (user) => {
-    return jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-};
-
-const verifyToken = (token) => {
-    return jwt.verify(token, secretKey);
-};
-
-
-const verifyTokenMiddleware = (req, res, next) => {
-    const token = req.headers.authorization;
-
-    if (token) {
-        try {
-            const decoded = verifyToken(token);
-            req.user = decoded;
-            next();
-        } catch (error) {
-            res.status(401).json({ message: 'Token invalide' });
-        }
-    } else {
-        res.status(401).json({ message: 'Token manquant' });
-    }
-};
-
-// Exemple d'utilisation du middleware pour protéger une route
-app.get('/profil', verifyTokenMiddleware, (req, res) => {
-    // Vous pouvez accéder à l'utilisateur authentifié via req.user
-    res.json(req.user);
-});
-
-//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
-
-
-app.get('/', (req, res) => {
-    res.send("Welcome to your server");
-});
-
-
-// Route pour gérer la connexion
-app.get('/connexion', (req, res) => {
-    res.send("connexion");
-});
-
+// Route to handle user login
 app.post('/connexion', (req, res) => {
-    const id = req.body.id;
-    const motDePasse = req.body.motDePasse;
-
-    // Vérifiez les informations d'identification
+    const { id} = req.body;
     const user = users.find(user => user.id === id);
-    //&& user.motDePasse === motDePasse);
 
     if (user) {
-        // Connexion réussie, générez un jeton JWT
-        const token = generateToken(user); // Génération du token
-        res.status(200).json({ result: true, message: "Connexion réussie",token: token });
-        console.log("connected");
+        res.status(200).json({ result: true, message: "Connexion réussie" });
     } else {
-        // Identifiants incorrects
         res.status(401).json({ result: false, message: "Identifiants incorrects" });
-        console.log("error");
     }
 });
 
-//Route pour la ccréation de compte
-app.get('/creer-compte', (req, res) => {
-    res.send("creer-compte");
-});
-
+// Route to handle user registration
 app.post('/creer-compte', (req, res) => {
-    // Récupérer les données du formulaire
     const newUser = {
         id: req.body.id,
         nom: req.body.nom,
@@ -111,70 +33,48 @@ app.post('/creer-compte', (req, res) => {
         email: req.body.email,
         telephone: req.body.telephone,
         blogId: req.body.blogId,
-        motDePasse: req.body.motDePasse // Ajouter le mot de passe
+        motDePasse: req.body.motDePasse
     };
 
-    // Lire le contenu actuel du fichier users.json
-    fs.readFile('./users.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading users file:', err);
-            res.status(500).json({ error: "Erreur lors de la création du compte" });
-            return;
-        }
+    const existingUser = users.find(user => user.id === newUser.id);
 
-        // Parser les données JSON
-        const users = JSON.parse(data);
-
-        // Vérifier si l'utilisateur existe déjà
-        const existingUser = users.find(user => user.id === newUser.id);
-
-        if (existingUser) {
-            // Utilisateur déjà existant
-            res.status(400).json({ error: "Ce compte existe déjà" });
-            console.log("error")
-        } else {
-            // Ajouter le nouvel utilisateur à la liste
-            users.push(newUser);
-            console.log("En cours...")
-            // Réécrire le fichier users.json avec les données mises à jour
-            fs.writeFile('./users.json', JSON.stringify(users), (err) => {
-                if (err) {
-                    console.error('Error writing users file:', err);
-                    res.status(500).json({ error: "Erreur lors de l'inscription" });
-                } else {
-                    console.log("Nouvel utilisateur enregistré :", newUser);
-                    res.status(200).json({ message: "Inscription réussie" });
-                }
-            });
-        }
-    });
-});
-
-
-
-// Route pour récupérer les informations de l'utilisateur actuellement connecté ou qui a créé un compte
-app.get('/profil/:id', (req, res) => {
-    const userId = req.params.id; // Récupérer l'ID de l'utilisateur à partir des paramètres de la requête
-    const user = users.find(user => user.id === userId); // Rechercher l'utilisateur dans la liste des utilisateurs
-    if (user) {
-        res.status(200).json(user); // Renvoyer les informations de l'utilisateur au format JSON
+    if (existingUser) {
+        res.status(400).json({ error: "Ce compte existe déjà" });
     } else {
-        res.status(404).json({ error: "Utilisateur non trouvé" }); // Renvoyer une erreur si l'utilisateur n'est pas trouvé
+        users.push(newUser);
+        fs.writeFile('./users.json', JSON.stringify(users), (err) => {
+            if (err) {
+                console.error('Error writing users file:', err);
+                res.status(500).json({ error: "Erreur lors de l'inscription" });
+            } else {
+                console.log("Nouvel utilisateur enregistré :", newUser);
+                res.status(200).json({ message: "Inscription réussie" });
+            }
+        });
     }
 });
 
-// Route pour mettre à jour le profil de l'utilisateur
-app.put('/profil/:id', (req, res) => {
-    const userId = req.params.id; // Récupérer l'ID de l'utilisateur à partir des paramètres de la requête
-    const updatedUser = req.body; // Récupérer les nouvelles données de l'utilisateur à partir du corps de la requête
+// Route to retrieve user profile by ID
+app.get('/profil', (req, res) => {
+    const userId = req.params.id;
+    const user = users.find(user => user.id === userId);
 
-    // Rechercher l'utilisateur dans la liste des utilisateurs
+    if (user) {
+        res.status(200).json(user); console.log(user);
+    } else {
+        res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+});
+
+// Route to update user profile by ID
+app.put('/profil', (req, res) => {
+    const userId = req.params.id;
+    const updatedUser = req.body;
+
     const userIndex = users.findIndex(user => user.id === userId);
-
+console.log(userIndex);
     if (userIndex !== -1) {
-        // Mettre à jour les données de l'utilisateur
         users[userIndex] = { ...users[userIndex], ...updatedUser };
-        // Réécrire le fichier users.json avec les données mises à jour
         fs.writeFile('./users.json', JSON.stringify(users), (err) => {
             if (err) {
                 console.error('Error writing users file:', err);
@@ -188,8 +88,6 @@ app.put('/profil/:id', (req, res) => {
         res.status(404).json({ error: "Utilisateur non trouvé" });
     }
 });
-
-
 
 // GESTION DES MESSAGES :
 

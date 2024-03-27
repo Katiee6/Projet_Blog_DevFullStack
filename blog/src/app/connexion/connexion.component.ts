@@ -21,7 +21,7 @@ import { AuthService } from '../auth.service';
 })
 export class ConnexionComponent{
 
-  credentials = { id: '', motDePasse: '' };
+  credentials = { id: ''};
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -51,6 +51,7 @@ export class ConnexionComponent{
       }
     );
   }*/
+  /*
   onLogin(): void {
     this.authService.login(this.credentials).subscribe(
       (response: any) => {
@@ -68,6 +69,8 @@ export class ConnexionComponent{
       }
     );
   }
+
+   */
   connexion() {
     // Créer un nouvel objet User avec l'email et l'ID du blog
     const user: User = {
@@ -84,8 +87,8 @@ export class ConnexionComponent{
     this.userService.connexion(user).subscribe(response => {
       console.log('Connexion réussie:', response);
       // Réinitialiser les données du formulaire après la connexion
-      this.credentials = { id: '', motDePasse: '' };
-      this.router.navigate(['/liste-messages']); // Rediriger vers la pge "liste-message"
+      this.credentials = { id: ''};
+      this.router.navigate(['/profil']); // Rediriger vers la pge "liste-message"
 
     }, error => {
       console.error('Erreur de connexion:', error);

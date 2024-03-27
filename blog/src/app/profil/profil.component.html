@@ -1,31 +1,47 @@
-<div class="profil">
-  <h2>Profil utilisateur</h2>
-  <form [formGroup]="profilForm" (ngSubmit)="updateProfile()">
-    <div>
-      <label for="nom">Nom</label>
-      <input type="text" id="nom" formControlName="nom">
-    </div>
-    <div>
-      <label for="prenom">Prénom</label>
-      <input type="text" id="prenom" formControlName="prenom">
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email">
-    </div>
-    <div>
-      <label for="telephone">Téléphone</label>
-      <input type="text" id="telephone" formControlName="telephone">
-    </div>
-    <div>
-      <label for="blogId">ID du Blog</label>
-      <input type="text" id="blogId" formControlName="blogId">
-    </div>
-    <div>
-      <label for="motDePasse">Mot de passe</label>
-      <input type="password" id="motDePasse" formControlName="motDePasse">
-    </div>
-    <button type="submit">Mettre à jour le profil</button>
-    <button type="button" (click)="confirmDeleteAccount()">Supprimer le compte</button>
-  </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil utilisateur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+<div class="main">
+  <h1>Profil utilisateur</h1>
+  <div class="profil">
+    <form [formGroup]="profilForm" (ngSubmit)="updateProfile()">
+      <div>
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" formControlName="nom">
+      </div>
+      <div>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" formControlName="prenom">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email">
+      </div>
+      <div>
+        <label for="telephone">Téléphone</label>
+        <input type="text" id="telephone" formControlName="telephone">
+      </div>
+      <div>
+        <label for="blogId">ID du Blog</label>
+        <input type="text" id="blogId" formControlName="blogId">
+      </div>
+      <div>
+        <label for="motDePasse">Mot de passe</label>
+        <input type="password" id="motDePasse" formControlName="motDePasse">
+      </div>
+      <button type="submit">Mettre à jour le profil</button>
+      <button type="button" (click)="confirmDeleteAccount()">Supprimer le compte</button>
+    </form>
+  </div>
 </div>
+</body>
+</html>

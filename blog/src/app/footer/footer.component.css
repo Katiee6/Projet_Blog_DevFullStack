@@ -1,0 +1,31 @@
+/* Styles du pied de page */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0; /* Ajuster la position à partir du coin gauche */
+  width: 100%; /* Utiliser toute la largeur de la page */
+  background-color: #1f1d1d; /* Couleur de fond */
+  color: #fff; /* Couleur du texte */
+  padding: 15px 0; /* Réduire l'espace vertical */
+  text-align: center;
+  border-radius: 10px;
+  display: flex; /* Utiliser flexbox */
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+}
+
+/* Styles du lien GitHub */
+.footer a {
+  color: rgba(251, 252, 255, 0.5);
+  text-decoration: none; /* Supprimer la soulignement */
+  box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.2); /* Ajouter une légère ombre */
+
+}
+
+.middle {
+  min-height: 450px;
+  padding: 20px 0;
+}
+.footer a:hover {
+  color: rgba(0, 35, 122, 0.5);
+}

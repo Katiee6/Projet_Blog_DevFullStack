@@ -1,17 +1,6 @@
 /* Import de la police Open Sans depuis Google Fonts */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-/* Styles globaux */
-html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: "Open Sans", sans-serif;
-}
-
-
 /* Styles de la barre de navigation */
 .navbar {
   max-width: 960px;
@@ -40,7 +29,8 @@ body {
   color: rgba(0, 35, 122, 0.5);
   font-size: 18px;
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .nav a:hover {
@@ -49,54 +39,8 @@ body {
   color: rgba(0, 35, 122, 0.7);
 }
 
-/* Styles du titre */
-.text-center {
-  text-align: center;
-  background-color: #ffffff;
-  color: #1f1d1d;
-  padding: 20px 0;
-}
-
-/* Icônes sociales */
-.social-icons {
-  display: flex;
-  align-items: center;
-}
-
-.social-icon {
-  color: #fff;
-  margin-left: 10px;
-  font-size: 24px;
-}
-
-/* Styles de la section centrale */
-.middle {
-  min-height: 450px;
-  padding: 20px 0;
-}
-
-/* Styles du pied de page */
-.footer {
-  background-color: rgba(91, 130, 155, 0);
-  color: #fff;
-  padding: 30px 0;
-  text-align: center;
-}
-
-.button {
-  display: inline-block;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #141515;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #131514;
+.nav a i {
+  margin-right: 5px;
 }
 
 /* Styles responsives */

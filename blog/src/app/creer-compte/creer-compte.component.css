@@ -1,11 +1,19 @@
+/* Styles du titre h1 */
+h1 {
+  text-align: center;
+  color: white;
+}
+
+/* Styles du corps */
 body {
   margin: 0;
-  padding: 0;
+  padding: 0 0 140px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 95vh;
   font-family: 'Jost', sans-serif;
+  color: white;
 }
 
 .main {
@@ -51,7 +59,7 @@ label {
   border-radius: 5px;
 }
 
-button{
+button {
   width: 60%;
   height: 40px;
   justify-content: center;
@@ -68,18 +76,18 @@ button{
   cursor: pointer;
 }
 
-.btn-signup { /* Nouvelle classe pour le bouton de création de compte */
+.btn-signup {
   background: #573b8a;
 }
 
-.btn-signup:hover { /* Nouvelle classe pour le bouton de création de compte */
+.btn-signup:hover {
   background: #6d44b8;
 }
 
-.btn-login { /* Nouvelle classe pour le bouton de connexion */
+.btn-login {
   background: #573b8a;
 }
 
-.btn-login:hover { /* Nouvelle classe pour le bouton de connexion */
+.btn-login:hover {
   background: #253b57;
 }

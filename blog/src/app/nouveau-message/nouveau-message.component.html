@@ -1,19 +1,13 @@
-<!--Formulaire pour créer un nouveau message-->
-<form #messageForm="ngForm" (ngSubmit)="onSubmit(messageForm)">
-  <div id="nouveau-titre">
-    <label for="titre">Titre :</label>
-    <input type="text" id="titre" name="titre" required [(ngModel)]="message.titre" />
-  </div>
-  <div id="nouveau-contenu">
-    <label for="contenu">Contenu :</label>
-    <textarea id="contenu" name="contenu" required [(ngModel)]="message.contenu"></textarea>
-  </div>
-  <button type="submit" >Publier le message</button>
-</form>
-
-<!--POUR LE TEST : A SUPPRIMER-->
-<p><br>Pour le test :</p>
-<pre>{{message | json}}</pre>
-
-<!--Boutton Retour qui renvoie au blog A CHANGER???-->
-<button routerLink="/blog">Retour</button>
+<div class="container">
+  <form #messageForm="ngForm" (ngSubmit)="onSubmit(messageForm)">
+    <div id="nouveau-titre">
+      <label for="titre">Titre :</label>
+      <input type="text" id="titre" name="titre" required [(ngModel)]="message.titre" />
+    </div>
+    <div id="nouveau-contenu">
+      <label for="contenu">Contenu :</label>
+      <textarea id="contenu" name="contenu" required [(ngModel)]="message.contenu"></textarea>
+    </div>
+    <button type="submit">Publier le message</button>
+  </form>
+</div>

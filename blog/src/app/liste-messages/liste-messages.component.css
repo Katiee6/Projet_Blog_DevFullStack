@@ -1,0 +1,39 @@
+.liste-messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bloc-message {
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 600px;
+}
+
+#liste-titre a {
+  color: #2f537e; /* Couleur bleue pour les liens */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#liste-date {
+  color: #666;
+}
+
+button {
+  background-color: #2f537e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #573b8a;
+}

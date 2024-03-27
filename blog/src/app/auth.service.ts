@@ -33,6 +33,7 @@ export class AuthService {
     localStorage.removeItem(this.JWT_TOKEN);
   }
 
+
   getAuthorizationHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',

@@ -1,0 +1,65 @@
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 95vh;
+  font-family: 'Jost', sans-serif;
+}
+
+
+form {
+  width: 400px; /* Ajustez la largeur du formulaire selon vos préférences */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: absolute;
+  top: 330px; /* Ajustez la distance du haut selon vos besoins */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea {
+  width: 45%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  background-color: #12375e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #585d64;
+}
+
+/* Styles du bouton "Retour" */
+button[routerLink="/blog"] {
+  background-color: #21306c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+button[routerLink="/blog"]:hover {
+  background-color: #585d64;
+}

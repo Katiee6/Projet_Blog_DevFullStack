@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  padding: 0 0 170px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 95vh;
+  font-family: 'Jost', sans-serif;
+}
+
+.main {
+  width: 424px;
+  height: auto; /* Modification de la hauteur pour s'adapter au contenu */
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+  background: linear-gradient(to bottom, #585d64, #302b63, #303091);
+  padding: 20px ; /* Ajout de marge intérieure pour l'espacement du contenu */
+}
+
+.profil {
+  color: #fff;
+  margin-top: 20px; /* Espacement entre le titre et le formulaire */
+}
+
+label {
+  font-size: 16px;
+  margin-bottom: 5px; /* Espacement entre les étiquettes et les champs de saisie */
+  display: block; /* Affichage en bloc pour chaque étiquette */
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px; /* Espacement entre les champs de saisie */
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px; /* Espacement entre les champs de saisie et les boutons */
+  background-color: #573b8a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #6d44b8;
+}
+
+

@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../User';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-profil',
+  templateUrl: './profil.component.html',
   standalone: true,
   imports: [
     ReactiveFormsModule
   ],
-  templateUrl: './profil.component.html',
-  styleUrl: './profil.component.css'
+  styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
   currentUser: User;
@@ -39,7 +39,6 @@ export class ProfilComponent implements OnInit {
     });
   }
 
-  //pop-up succees notification
   showSuccessMessage(message: string): void {
     alert(message);
   }
@@ -48,56 +47,31 @@ export class ProfilComponent implements OnInit {
     this.getProfile();
   }
 
-  /*
   getProfile(): void {
     this.loading = true;
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type':  'application/json',
-          'Authorization': 'Bearer ' + token
+    this.http.get<User>('/profil')
+      .pipe(
+        catchError(error => {
+          this.errorMessage = 'Erreur lors de la récupération du profil';
+          return throwError(error);
         })
-      };
+      )
+      .subscribe(
+        (user: User) => {
+          console.log('Données du profil récupérées avec succès :', user);
+          this.currentUser = user;
+          this.updateFormValues();
+        },
+        error => {
+          console.error('Erreur lors de la récupération du profil :', error);
+          this.loading = false;
+        },
+        () => {
+          this.loading = false;
+        }
+      );
+  }
 
-      this.http.get<User>('/profil', httpOptions)
-        .pipe(
-          catchError(error => {
-            this.errorMessage = 'Erreur lors de la récupération du profil';
-            return throwError(error);
-          })
-        )
-        .subscribe(
-          (user: User) => {
-            console.log('Données du profil récupérées avec succès :', user);
-            this.currentUser = user;
-            this.updateFormValues();
-          },
-          error => {
-            console.error('Erreur lors de la récupération du profil :', error);
-            this.loading = false;
-          },
-          () => {
-            this.loading = false;
-          }
-        );
-    } else {
-      console.log('Aucun jeton JWT trouvé.');
-      this.loading = false;
-    }
-  }
-*/
-  getProfile(): void {
-    this.http.get<any>('/profil', { headers: this.authService.getAuthorizationHeaders() }).subscribe(
-      response => {
-        this.currentUser = response;
-      },
-      error => {
-        console.error('Erreur lors de la récupération du profil:', error);
-      }
-    );
-  }
   updateFormValues(): void {
     this.profilForm.patchValue({
       nom: this.currentUser.nom,
@@ -136,17 +110,6 @@ export class ProfilComponent implements OnInit {
       );
   }
 
-  /*loadCurrentUser(): void {
-  this.userService.getCurrentUser().subscribe(
-    (user: User) => {
-      this.currentUser = user;
-      this.updateFormValues();
-    },
-    error => {
-      console.error('Erreur lors du chargement des données de l\'utilisateur:', error);
-    }
-  );
-}*/
   confirmDeleteAccount(): void {
     const confirmation = confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');
     if (confirmation) {

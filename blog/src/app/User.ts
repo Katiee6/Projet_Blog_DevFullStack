@@ -6,6 +6,7 @@ export class User {
   telephone: string;
   blogId: string;
   motDePasse : string;
+
 //
   constructor(id: string, nom: string, prenom: string, email: string, telephone: string, blogId: string, motDePasse : string) {
     this.id = id;
