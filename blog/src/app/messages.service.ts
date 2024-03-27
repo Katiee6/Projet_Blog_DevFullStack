@@ -15,7 +15,6 @@ export class MessagesService {
 
   // Méthode utilisée lors de la validation du formulaire de création d'un message
   ajouterMessage(message:{titre:string, contenu:string}): Observable<Message> {
-    //const message = {titre, contenu};
     return this.http.post<any>(this.url+'/nouveau-message', message);
   }
 
@@ -24,7 +23,7 @@ export class MessagesService {
     return this.http.get<Message>(`${this.url}/message/${id}`);
   }
 
-  // Méthode utilisée lors de la suppression d'un message PAS OK
+  // Méthode utilisée lors de la suppression d'un message
   supprimerMessage(id: number): Observable<Message> {
     return this.http.delete<Message>(`${this.url}/message/${id}`);
   }

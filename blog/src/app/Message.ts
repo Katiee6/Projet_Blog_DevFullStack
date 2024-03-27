@@ -3,6 +3,6 @@ export class Message {
   titre!: string;
   contenu!: string;
   date!: string;
-  // ajouter user ??
+  //user!: string;
 
 }
