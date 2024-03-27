@@ -10,21 +10,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+
 let users = require("./users.json");
 
-// Route to handle user login
+// Route pour la page de connexion
 app.post('/connexion', (req, res) => {
     const { id, motDePasse} = req.body;
-    const user = users.find(user => user.id === id && user.motDePasse);
+    const user = users.find(user => user.id === id && user.motDePasse===motDePasse);
 
     if (user) {
         res.status(200).json({ result: true, message: "Connexion réussie" });
+        console.log("connecté");
     } else {
         res.status(401).json({ result: false, message: "Identifiants incorrects" });
+        console.log("erreur : connexion");
+
     }
 });
 
-// Route to handle user registration
+// Route pour creer un compte
 app.post('/creer-compte', (req, res) => {
     const newUser = {
         id: req.body.id,
@@ -36,9 +40,9 @@ app.post('/creer-compte', (req, res) => {
         motDePasse: req.body.motDePasse
     };
 
-    const existingUser = users.find(user => user.id === newUser.id);
+    const existeUser = users.find(user => user.id === newUser.id);
 
-    if (existingUser) {
+    if (existeUser) {
         res.status(400).json({ error: "Ce compte existe déjà" });
     } else {
         users.push(newUser);
@@ -54,26 +58,29 @@ app.post('/creer-compte', (req, res) => {
     }
 });
 
-// Route to retrieve user profile by ID
-app.get('/profil', (req, res) => {
+// Route profil
+app.get('/profil/:id', (req, res) => {
     const userId = req.params.id;
-    const user = users.find(user => user.id === userId);
+    const user = users.find.id(user => user.id === userId);
 
     if (user) {
-        res.status(200).json(user); console.log(user);
+        res.status(200).json(user);
+        console.log("ici = "+user);
     } else {
         res.status(404).json({ error: "Utilisateur non trouvé" });
+        console.log("ici erreur = "+user);
+
     }
 });
 
-// Route to update user profile by ID
-app.put('/profil', (req, res) => {
+// Route pour mettre à jour le profil
+app.put('/profil/:id', (req, res) => {
     const userId = req.params.id;
     const updatedUser = req.body;
 
-    const userIndex = users.findIndex(user => user.id === userId);
+    const userIndex= users.find(user => user.id === userId);
 console.log(userIndex);
-    if (userIndex !== -1) {
+    if (userIndex) {
         users[userIndex] = { ...users[userIndex], ...updatedUser };
         fs.writeFile('./users.json', JSON.stringify(users), (err) => {
             if (err) {

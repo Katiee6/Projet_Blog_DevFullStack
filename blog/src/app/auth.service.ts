@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {Message} from "./Message";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  JWT_TOKEN = 'angular17token';
+  JWT_TOKEN = 'token';
   constructor(private http: HttpClient) { }
   login(credentials: { id: string, motDePasse: string }): Observable<any> {
     return this.http.post<any>('/connexion', credentials);
   }
 
+
+  //version non fini avec les 'token' et pas used
   getToken(): string | null {
     return localStorage.getItem(this.JWT_TOKEN);
   }

@@ -72,6 +72,7 @@ export class ProfilComponent implements OnInit {
       );
   }
 
+  //mise à jour du profil
   updateFormValues(): void {
     this.profilForm.patchValue({
       nom: this.currentUser.nom,

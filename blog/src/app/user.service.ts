@@ -12,26 +12,17 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  // Méthode pour connecter l'utilisateur
+  // Méthode pour se connecter
   connexion(user: User): Observable<any> {
     return this.http.post(`${this.baseUrl}/connexion`, user);
   }
 
-  //creer l'utilisateur
+  //creer un compte
   createUser(user: User): Observable<any> {
     return this.http.post(`${this.baseUrl}/creer-compte`, user);
   }
 
-
-
-
-
-
   //Récupérer les données de l'utilisateur actuellement connecté
-  getCurrentUser(): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/profil`);
-  }
-
   // Méthode pour récupérer les informations de l'utilisateur
   getUserProfile(userId: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/profil/${userId}`);
