@@ -10,9 +10,6 @@ import {Observable} from "rxjs";
 export class MessagesService {
 
   private url = 'http://localhost:5500';
-  //private urlNouveau = 'http://localhost:5500/blog/nouveau'; // changer blog ??
-  //private urlDetail = 'http://localhost:5500/blog'; // changer blog ??
-  //private urlListe = 'http://localhost:5500/blog/liste'; // changer blog ??
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +26,6 @@ export class MessagesService {
 
   // Méthode utilisée lors de la suppression d'un message PAS OK
   supprimerMessage(id: number): Observable<Message> {
-    //const url = `${this.urlDetail}/${id}`;
     return this.http.delete<Message>(`${this.url}/message/${id}`);
   }
 

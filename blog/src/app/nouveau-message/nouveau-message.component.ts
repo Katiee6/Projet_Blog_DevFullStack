@@ -27,7 +27,6 @@ export class NouveauMessageComponent {
   onSubmit(form: NgForm) {
     this.messagesService.ajouterMessage(this.message).subscribe((nouveauMessage) => {
       console.log(nouveauMessage);
-      //location.assign("/blog/" + nouveauMessage.id) // Redirige vers les détails du message créé
       this.router.navigate(['/liste-messages']);
     });
   }

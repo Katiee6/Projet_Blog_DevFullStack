@@ -8,7 +8,7 @@ import { User } from './User';
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:5500'; // Assurez-vous de mettre à jour l'URL en fonction de votre backend
+  private baseUrl = 'http://localhost:5500';
 
   constructor(private http: HttpClient) { }
 

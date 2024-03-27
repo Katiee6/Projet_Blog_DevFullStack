@@ -30,13 +30,13 @@ export class CreerCompteComponent {
       email: ['', [Validators.required, Validators.email]],
       telephone: ['', Validators.required],
       blogId: ['', Validators.required],
-      motDePasse: ['', Validators.required] // Ajouter une validation pour le mot de passe si nécessaire
+      motDePasse: ['', Validators.required]
     });
   }
 // Méthode pour créer un nouveau compte utilisateur
   creerCompte() {
     const newUser: User = this.newUserForm.value as User;
-    console.log('Nouvel utilisateur à créer :', newUser); // Ajouter un log pour vérifier les données du nouvel utilisateur
+    console.log('Nouvel utilisateur à créer :', newUser);
 
     this.userService.createUser(newUser).subscribe( response => {
 

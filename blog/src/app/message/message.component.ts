@@ -34,7 +34,6 @@ export class MessageComponent implements OnInit{
 
   // Méthode qui permet de supprimer un message
   supprimer(message: Message) {
-    //location.assign("/blog/liste") // Redirige vers la liste //REDIRIGER VERS L'ACCUEIL???
     this.messagesService.supprimerMessage(message.id).subscribe();
     this.router.navigate(['/liste-messages']);
   }
